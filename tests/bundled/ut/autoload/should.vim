@@ -1,13 +1,13 @@
 "=============================================================================
-" File:		tests/lh/UT-fixtures.vim                                  {{{1
+" $Id$
+" File:		autoload/should.vim                               {{{1
 " Author:	Luc Hermitte <EMAIL:hermitte {at} free {dot} fr>
-"		<URL:http://github.com/LucHermitte/vim-UT>
-" Version:	0.0.1
-" Created:	11th Feb 2009
+"		<URL:http://hermitte.free.fr/vim/>
+" Version:	«version»
+" Created:	23rd Feb 2009
 " Last Update:	$Date$
 "------------------------------------------------------------------------
-" Description:	UnitTests for the UT plugin. 
-" - Test fixtures
+" Description:	«description»
 " 
 "------------------------------------------------------------------------
 " Installation:	«install details»
@@ -19,37 +19,35 @@
 let s:cpo_save=&cpo
 set cpo&vim
 "------------------------------------------------------------------------
-UTSuite [lh#UT] Testing fixtures
 
-let s:v1 = 0
-let s:v2 = 0
-
-function! s:Setup()
-  Assert! exists('s:v1')
-  Assert! exists('s:v2')
-  let s:v1 += 1
-  let s:v2 += 1
+" ## Functions {{{1
+" # Debug {{{2
+function! should#verbose(level)
+  let s:verbose = a:level
 endfunction
 
-function! s:Teardown()
-  let s:v1 = 0
+function! s:Verbose(expr)
+  if exists('s:verbose') && s:verbose
+    echomsg a:expr
+  endif
 endfunction
 
-function! s:TestSetup()
-  Comment "First test weither s:v1 and g:v2 are set to 1"
-  " Assert0 s:v1 == 1
-  Assert s:v1 == 1
-  Assert s:v2 == 1
+function! should#debug(expr)
+  return eval(a:expr)
 endfunction
 
-function! s:TestTeardown()
-  Comment "Second test weither only s:v1 is incremented, while g:v2 is set to 1"
-  Assert s:v1 == 1
-  Assert s:v2 == 2
-endfunction
 
-" UTPlay TestTeardown
-UTIgnore TestTeardown
+" # Convinience functions for tAssert/UT {{{2
+function! should#throw(expression, exception_pattern)
+  try 
+    call eval(a:expression)
+  catch /.*/
+    if v:exception =~ a:exception_pattern
+      return 1
+    endif
+  endtry
+  return 0
+endfunction
 
 "------------------------------------------------------------------------
 let &cpo=s:cpo_save

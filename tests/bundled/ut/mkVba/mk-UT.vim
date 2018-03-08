@@ -1,29 +1,32 @@
 "=============================================================================
-" $Id: mk-UT.vim 194 2010-05-17 23:26:14Z luc.hermitte $
 " File:		mk-UT.vim
 " Author:	Luc Hermitte <EMAIL:hermitte {at} free {dot} fr>
-"		<URL:http://hermitte.free.fr/vim/>
-" Version:	0.0.3
-let s:version = '0.0.3'
+"		<URL:http://github.com/LucHermitte/vim-UT>
+" Version:	1.0.8
+let s:version = '1.0.8'
 " Created:	19th Feb 2009
-" Last Update:	$Date: 2010-05-17 19:26:14 -0400 (Mon, 17 May 2010) $
+" Last Update:	09th Apr 2017
 "------------------------------------------------------------------------
 cd <sfile>:p:h
-try 
+try
   let save_rtp = &rtp
   let &rtp = expand('<sfile>:p:h:h').','.&rtp
-  exe '22,$MkVimball! UT-'.s:version
+  exe '21,$MkVimball! UT-'.s:version
   set modifiable
   set buftype=
 finally
   let &rtp = save_rtp
 endtry
 finish
-UT.README
+License.md
+README.md
+VimFlavor
+addon-info.json
 autoload/lh/UT.vim
 autoload/should.vim
 autoload/should/be.vim
 doc/UT.txt
+doc/rspec-integration.md
 ftplugin/vim/vim_UT.vim
 mkVba/mk-UT.vim
 plugin/UT.vim
