@@ -21,6 +21,7 @@ end
 
 
 task :install do
+  sh 'touch VimFlavor' # if we add it
   sh 'cat VimFlavor >> tests/VimFlavor'
   sh 'cd tests && bundle exec vim-flavor install'
 end
